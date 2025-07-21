@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
     return () => clearInterval(interval);
   }, [user?.refreshToken]);
 
-  return <AuthContext.Provider value={{}}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, setUser }}> {children} </AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);
