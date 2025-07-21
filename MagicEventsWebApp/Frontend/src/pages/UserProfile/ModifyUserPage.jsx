@@ -26,11 +26,17 @@ function UserEditPage({ setLogged }) {
 		setLoading(true);
 		
 		try {
+			console.log("Modify: ", JSON.stringify(user));
 			const res = await modifyUser(JSON.stringify(user));
-			if (!res.ok) throw new Error('error for user modify operation');
+
+			if (!res.ok) throw new Error('Error in user modify operation');
+
 			setMessage('Modifica riuscita');
+
 			sessionStorage.setItem('user', JSON.stringify(user));
+
 			navigate('/modifyuser');
+
 			setLogged(false);
 			setTimeout(() => {
 				setLogged(true);
