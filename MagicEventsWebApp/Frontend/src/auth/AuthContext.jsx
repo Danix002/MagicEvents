@@ -1,11 +1,16 @@
-import React, { createContext, useContext, useEffect } from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 import {logout, refreshToken } from '../api/userAPI';
 
 const AuthContext = createContext();
 
 const REFRESH_INTERVAL_MINUTES = 5;
 
-export const AuthProvider = ({ children, user, setUser }) => {
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(() => {
+    const savedUser = sessionStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
   useEffect(() => {
     if (!user?.refreshToken) return;
 
