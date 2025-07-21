@@ -146,7 +146,7 @@ function App() {
 					<Route element={<ProtectedRoute logged={logged} />}>
 						<Route path="/home" element={<MagicEventHomePage />} />
 						<Route path="/userprofile" element={<UserProfilePage setLogged={setLogged} />} />
-						<Route path="/modifyuser" element={<ModifyUserValuePage setLogged={setLogged} />} />
+						<Route path="/modifyuser" element={<ModifyUserValuePage />} />
 
 						<Route
 							path="/newevent"

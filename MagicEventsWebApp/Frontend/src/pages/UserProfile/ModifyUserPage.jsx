@@ -7,7 +7,7 @@ import Input from '../../components/inputs/Input';
 import Button from '../../components/buttons/Button';
 import imageCompression from 'browser-image-compression';
 
-function UserEditPage({ setLogged }) {
+function UserEditPage() {
 	const navigate = useNavigate();
 	const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
 	const [message, setMessage] = useState(null);
@@ -26,7 +26,6 @@ function UserEditPage({ setLogged }) {
 		setLoading(true);
 		
 		try {
-			console.log("Modify: ", JSON.stringify(user));
 			const res = await modifyUser(JSON.stringify(user));
 
 			if (!res.ok) throw new Error('Error in user modify operation');
@@ -35,12 +34,7 @@ function UserEditPage({ setLogged }) {
 
 			sessionStorage.setItem('user', JSON.stringify(user));
 
-			navigate('/modifyuser');
-
-			setLogged(false);
-			setTimeout(() => {
-				setLogged(true);
-			}, 100);
+			navigate('/modifyuser', { replace: true });
 		} catch (err) {
 			setError(err.message);
 		} finally {
@@ -65,20 +59,20 @@ function UserEditPage({ setLogged }) {
 	};
 
 	async function imageUploaded(file) {
-		const options = {
-			maxSizeMB: 0.05,
-			maxWidthOrHeight: 800,
-			useWebWorker: true,
-			fileType: 'image/jpeg',
-		};
+		//const options = {
+			//maxSizeMB: 0.05,
+			//maxWidthOrHeight: 800,
+			//useWebWorker: true,
+			//fileType: 'image/jpeg',
+		//};
 
-		const compressedFile = await imageCompression(file, options);
+		//const compressedFile = await imageCompression(file, options);
 		let reader = new FileReader();
 		reader.onload = function () {
 			const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
 			setUser((prev) => ({ ...prev, profileImageUrl: base64String }));
 		};
-		reader.readAsDataURL(compressedFile);
+		reader.readAsDataURL(file);
 	}
 
 	return (
