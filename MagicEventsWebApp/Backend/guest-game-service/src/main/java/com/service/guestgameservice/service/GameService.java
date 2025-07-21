@@ -267,91 +267,39 @@ public class GameService {
 
         String currentLine = lines.get(lineIndex[0]);
         int currentDepth = getDepth(currentLine);
-        
-        // Se siamo tornati a un livello più superficiale, fermati
+
+        // Stop parsing if we encounter a line at a shallower depth
         if (currentDepth < expectedDepth) {
             return null;
         }
-        
-        // Se il livello è più profondo del previsto, errore
+
+        // Ensure the current line matches the expected depth
         if (currentDepth > expectedDepth) {
-            return null;
+            throw new IllegalStateException("Unexpected depth in decision tree parsing");
         }
 
-        // Consuma la linea corrente
+        // Consume the current line
         lineIndex[0]++;
-        
+
         String cleanLine = currentLine.trim().replaceAll("^\\|+\\s*", "");
-        
-        // Se è una foglia, restituiscila
+
+        // If it's a leaf node, return it
         if (isLeafNode(cleanLine)) {
             String className = extractClassFromLeaf(cleanLine);
             return new TreeNodeDTO(className);
         }
 
-        // È un nodo di decisione
+        // It's a decision node
         String baseCondition = extractBaseCondition(cleanLine);
         String question = formatQuestion(baseCondition);
 
-        // Parsa il sottoalbero sinistro (tutti i figli con profondità maggiore)
-        TreeNodeDTO leftChild = parseSubtree(lines, expectedDepth + 1, lineIndex);
+        // Parse the left subtree
+        TreeNodeDTO leftChild = parseComplexNode(lines, expectedDepth + 1, lineIndex);
 
-        // Cerca il ramo destro (stessa profondità, condizione complementare)
-        TreeNodeDTO rightChild = findAndParseRightBranch(lines, expectedDepth, baseCondition, lineIndex);
+        // Parse the right subtree
+        TreeNodeDTO rightChild = parseComplexNode(lines, expectedDepth + 1, lineIndex);
 
         return new TreeNodeDTO(question, leftChild, rightChild);
-    }
-
-    private TreeNodeDTO parseSubtree(List<String> lines, int targetDepth, int[] lineIndex) {
-        if (lineIndex[0] >= lines.size()) {
-            return null;
-        }
-
-        String nextLine = lines.get(lineIndex[0]);
-        int nextDepth = getDepth(nextLine);
-        
-        if (nextDepth == targetDepth) {
-            return parseComplexNode(lines, targetDepth, lineIndex);
-        }
-        
-        return null;
-    }
-
-    private TreeNodeDTO findAndParseRightBranch(List<String> lines, int expectedDepth, String leftCondition, int[] lineIndex) {
-        // Cerca una linea alla stessa profondità con condizione complementare
-        while (lineIndex[0] < lines.size()) {
-            String currentLine = lines.get(lineIndex[0]);
-            int currentDepth = getDepth(currentLine);
-            
-            // Se siamo tornati a un livello più superficiale, fermati
-            if (currentDepth < expectedDepth) {
-                break;
-            }
-            
-            // Se troviamo una linea alla stessa profondità
-            if (currentDepth == expectedDepth) {
-                String cleanLine = currentLine.trim().replaceAll("^\\|+\\s*", "");
-                String currentCondition = extractBaseCondition(cleanLine);
-                
-                // Verifica se è la condizione complementare
-                if (areComplementaryConditions(leftCondition, currentCondition)) {
-                    lineIndex[0]++; // Consuma la linea
-                    
-                    if (isLeafNode(cleanLine)) {
-                        String className = extractClassFromLeaf(cleanLine);
-                        return new TreeNodeDTO(className);
-                    } else {
-                        // Parsa il sottoalbero destro
-                        return parseSubtree(lines, expectedDepth + 1, lineIndex);
-                    }
-                }
-            }
-            
-            // Salta le linee più profonde fino a trovare quella giusta
-            lineIndex[0]++;
-        }
-        
-        return null;
     }
 
     private int getDepth(String line) {
