@@ -54,8 +54,7 @@ public class UserService {
                 user.getEmail(),
                 user.getProfileImageUrl(),
                 user.getName(),
-                user.getSurname(),
-                user.getRole()
+                user.getSurname()
         );
     }
 }

@@ -107,7 +107,8 @@ public class AuthService {
                     user.getProfileImageUrl(),
                     user.getName(),
                     user.getSurname(),
-                    loginWithTokenDTO.getAccessToken()
+                    loginWithTokenDTO.getAccessToken(),
+                    loginWithTokenDTO.getExpirationTime()
             );
         }
 
@@ -156,7 +157,8 @@ public class AuthService {
                 user.getProfileImageUrl(),
                 user.getName(),
                 user.getSurname(),
-                accessToken
+                accessToken,
+                oauthToken.getExpirationTime()
         );
     }
 

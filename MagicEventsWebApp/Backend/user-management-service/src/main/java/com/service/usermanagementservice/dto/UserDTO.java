@@ -3,6 +3,8 @@ package com.service.usermanagementservice.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import java.time.LocalDateTime;
+
 public class UserDTO {
     @NotNull(message = "Magic Events Tag is required")
     @Positive(message = "Magic Events Tag must be positive")
@@ -17,8 +19,10 @@ public class UserDTO {
     private String name;
     @NotNull(message = "Surname is required")
     private String surname;
-    @NotNull(message = "Role is required")
+    @NotNull(message = "Token is required")
     private String token;
+    @NotNull(message = "Expiration time is required")
+    private LocalDateTime expirationTime;
 
     public UserDTO(
             Long magicEventTag,
@@ -27,7 +31,8 @@ public class UserDTO {
             String profileImageUrl,
             String name,
             String surname,
-            String token
+            String token,
+            LocalDateTime expirationTime
     ) {
         this.magicEventTag = magicEventTag;
         this.username = username;
@@ -36,6 +41,23 @@ public class UserDTO {
         this.name = name;
         this.surname = surname;
         this.token = token;
+        this.expirationTime = expirationTime;
+    }
+
+    public UserDTO(
+            Long magicEventTag,
+            String username,
+            String email,
+            String profileImageUrl,
+            String name,
+            String surname
+    ) {
+        this.magicEventTag = magicEventTag;
+        this.username = username;
+        this.email = email;
+        this.profileImageUrl = profileImageUrl;
+        this.name = name;
+        this.surname = surname;
     }
 
     public Long getMagicEventTag() {
@@ -92,6 +114,14 @@ public class UserDTO {
 
     public void setToken(String role) {
         this.token = role;
+    }
+
+    public LocalDateTime getExpirationTime() {
+        return expirationTime;
+    }
+
+    public void setExpirationTime(LocalDateTime expirationTime) {
+        this.expirationTime = expirationTime;
     }
 }
 

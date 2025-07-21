@@ -53,7 +53,7 @@ public class RequestsValidatorController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/refresh")
+    @PutMapping("/refresh")
     public ResponseEntity<LoginWithTokenDTO> refreshToken(@RequestBody String refreshToken) {
         try {
             LoginWithTokenDTO newTokens = authService.refreshAccessToken(refreshToken);
