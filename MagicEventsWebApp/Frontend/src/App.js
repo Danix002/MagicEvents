@@ -26,9 +26,15 @@ import GameForm from './pages/Event/Game/GameForm';
 import AddPartecipantPage from "./pages/Event/AddPartecipantPage";
 import ProtectedRoute from "./ProtectedRoute";
 import InfoPage from "./pages/InfoPage";
+import { useAuth } from './auth/AuthContext';
 
 function App() {
-	const [logged, setLogged] = useState(sessionStorage.getItem('user') ? true : false);
+	const { user } = useAuth();
+	const [logged, setLogged] = useState(!!user);
+
+	useEffect(() => {
+		setLogged(!!user);
+	}, [user]);
 
 	useEffect(() => {
 		const script = document.createElement('script');

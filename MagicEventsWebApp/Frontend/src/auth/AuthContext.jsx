@@ -3,7 +3,7 @@ import {logout, refreshToken } from '../api/userAPI';
 
 const AuthContext = createContext();
 
-const REFRESH_INTERVAL_MINUTES = 2;
+const REFRESH_INTERVAL_MINUTES = 45;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
@@ -16,13 +16,11 @@ export const AuthProvider = ({ children }) => {
 
     const refresh = async () => {
       try {
-        console.log("Refresh token: ", user.refreshToken)
         const res = await refreshToken(user.refreshToken);
 
         if (!res.ok) throw new Error('Refresh token failed');
 
         const data = await res.json();
-        console.log("Refresh token success: ", data)
 
         setUser(prev => {
           const updatedUser = {
