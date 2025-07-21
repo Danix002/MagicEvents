@@ -23,6 +23,8 @@ public class UserDTO {
     private String token;
     @NotNull(message = "Expiration time is required")
     private LocalDateTime expirationTime;
+    @NotNull(message = "Refresh token is required")
+    private String refreshToken;
 
     public UserDTO(
             Long magicEventTag,
@@ -32,7 +34,8 @@ public class UserDTO {
             String name,
             String surname,
             String token,
-            LocalDateTime expirationTime
+            LocalDateTime expirationTime,
+            String refreshToken
     ) {
         this.magicEventTag = magicEventTag;
         this.username = username;
@@ -42,6 +45,7 @@ public class UserDTO {
         this.surname = surname;
         this.token = token;
         this.expirationTime = expirationTime;
+        this.refreshToken = refreshToken;
     }
 
     public UserDTO(
@@ -122,6 +126,14 @@ public class UserDTO {
 
     public void setExpirationTime(LocalDateTime expirationTime) {
         this.expirationTime = expirationTime;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }
 

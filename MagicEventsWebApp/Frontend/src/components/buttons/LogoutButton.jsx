@@ -11,11 +11,13 @@ function LogoutButton({ setLogged }) {
 		e.preventDefault();
 		try {
 			const res = await logout();
+
 			if (!res.ok) throw new Error('logout failed');
-			console.log('Success:', res);
+
 			setUser(null);
 			sessionStorage.removeItem('user');
 			setLogged(false);
+
 			navigate('/');
 		} catch (err) {
 			console.error('Error:', err.message);

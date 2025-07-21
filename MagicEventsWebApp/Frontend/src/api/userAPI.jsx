@@ -113,6 +113,6 @@ export function refreshToken(token) {
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: token,
+		body: JSON.stringify(token),
 	});
 }

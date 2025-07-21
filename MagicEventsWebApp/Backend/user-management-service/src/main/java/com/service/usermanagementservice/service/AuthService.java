@@ -108,7 +108,8 @@ public class AuthService {
                     user.getName(),
                     user.getSurname(),
                     loginWithTokenDTO.getAccessToken(),
-                    loginWithTokenDTO.getExpirationTime()
+                    loginWithTokenDTO.getExpirationTime(),
+                    loginWithTokenDTO.getRefreshToken()
             );
         }
 
@@ -158,7 +159,8 @@ public class AuthService {
                 user.getName(),
                 user.getSurname(),
                 accessToken,
-                oauthToken.getExpirationTime()
+                oauthToken.getExpirationTime(),
+                oauthToken.getRefreshToken()
         );
     }
 
