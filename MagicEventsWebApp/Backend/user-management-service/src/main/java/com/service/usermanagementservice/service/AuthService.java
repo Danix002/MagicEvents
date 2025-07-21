@@ -88,7 +88,7 @@ public class AuthService {
         if(user != null && passwordEncoder.matches(password, user.getPassword())){
             OauthToken oauthToken = tokenRepository.findByUser(user);
             LoginWithTokenDTO loginWithTokenDTO = new LoginWithTokenDTO();
-            if(oauthToken == null) {
+            if(oauthToken == null || oauthToken.getExpirationTime().isBefore(LocalDateTime.now())) {
                 loginWithTokenDTO = saveTokenForUser(user);
             }
             return new UserDTO(
