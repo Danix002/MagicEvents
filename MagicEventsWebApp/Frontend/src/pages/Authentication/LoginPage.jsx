@@ -57,6 +57,12 @@ function LoginPage({ setLogged }) {
 			return;
 		}
 		const data = await res.json();
+
+		if (!data.token) {
+			setErrorMessage('Login fallito');
+			return;
+		}
+
 		setUser(data);
 		sessionStorage.setItem('user', JSON.stringify(data));
 
