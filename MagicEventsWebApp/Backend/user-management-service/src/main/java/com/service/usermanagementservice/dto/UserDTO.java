@@ -64,6 +64,8 @@ public class UserDTO {
         this.surname = surname;
     }
 
+    public UserDTO() {}
+
     public Long getMagicEventTag() {
         return magicEventTag;
     }
