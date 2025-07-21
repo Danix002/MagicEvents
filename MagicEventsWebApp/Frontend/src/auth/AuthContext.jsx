@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect } from 'react';
 import {logout, refreshToken } from '../api/userAPI';
-import {useNavigate} from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -39,7 +38,6 @@ export const AuthProvider = ({ children, user, setUser }) => {
 
           setUser(null);
           sessionStorage.removeItem('user');
-          navigate('/');
         } catch (logoutErr) {
           console.error('Logout failed:', logoutErr.message);
         }
