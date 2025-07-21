@@ -111,8 +111,8 @@ export function refreshToken(token) {
 	return fetch(`${userManagementUrl}/validator/refresh`, {
 		method: 'PUT',
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-Type': 'text/plain',
 		},
-		body: JSON.stringify(token),
+		body: token,
 	});
 }
