@@ -56,20 +56,10 @@ public class RequestsValidatorController {
     @GetMapping("/refresh")
     public ResponseEntity<LoginWithTokenDTO> refreshToken(@RequestBody String refreshToken) {
         try {
-            LoginWithTokenDTO newTokens = refreshAccessToken(refreshToken);
+            LoginWithTokenDTO newTokens = authService.refreshAccessToken(refreshToken);
             return ResponseEntity.ok(newTokens);
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-    }
-
-    public LoginWithTokenDTO refreshAccessToken(String refreshToken) {
-        OauthToken oauthToken = oauthTokenRepository.findByRefreshToken(refreshToken);
-        if(oauthToken == null) {
-            throw new BadCredentialsException("Invalid refresh token");
-        }
-        LoginWithTokenDTO res = authService.saveTokenForUser(oauthToken.getUser());
-        oauthTokenRepository.delete(oauthToken);
-        return res;
     }
 }

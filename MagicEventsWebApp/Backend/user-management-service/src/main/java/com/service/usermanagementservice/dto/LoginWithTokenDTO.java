@@ -7,6 +7,14 @@ public class LoginWithTokenDTO {
     private String refreshToken;
     private LocalDateTime expirationTime;
 
+    public LoginWithTokenDTO(String accessToken, String refreshToken, LocalDateTime expirationTime) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.expirationTime = expirationTime;
+    }
+
+    public LoginWithTokenDTO() {}
+
     public String getAccessToken() {
         return accessToken;
     }

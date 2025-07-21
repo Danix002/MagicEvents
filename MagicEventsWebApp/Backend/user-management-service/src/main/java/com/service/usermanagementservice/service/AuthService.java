@@ -85,12 +85,21 @@ public class AuthService {
     public UserDTO login(String email, String password) {
         User user = userRepository.findByEmail(email);
 
-        if(user != null && passwordEncoder.matches(password, user.getPassword())){
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             OauthToken oauthToken = tokenRepository.findByUser(user);
-            LoginWithTokenDTO loginWithTokenDTO = new LoginWithTokenDTO();
-            if(oauthToken == null || oauthToken.getExpirationTime().isBefore(LocalDateTime.now())) {
+            LoginWithTokenDTO loginWithTokenDTO;
+            if (oauthToken == null) {
                 loginWithTokenDTO = saveTokenForUser(user);
+            } else if (oauthToken.getExpirationTime().isBefore(LocalDateTime.now())) {
+                loginWithTokenDTO = refreshAccessToken(oauthToken.getRefreshToken());
+            } else {
+                loginWithTokenDTO = new LoginWithTokenDTO(
+                        oauthToken.getAccessToken(),
+                        oauthToken.getRefreshToken(),
+                        oauthToken.getExpirationTime()
+                );
             }
+
             return new UserDTO(
                     user.getMagicEventTag(),
                     user.getUsername(),
@@ -104,6 +113,7 @@ public class AuthService {
 
         throw new BadCredentialsException("Invalid username or password");
     }
+
 
     public LoginWithTokenDTO processGrantCode(String code) {
         String accessToken = getOauthAccessTokenGoogle(code);
@@ -314,5 +324,15 @@ public class AuthService {
             userRepository.save(user);
             return userDTO;
         }
+    }
+
+    public LoginWithTokenDTO refreshAccessToken(String refreshToken) {
+        OauthToken oauthToken = tokenRepository.findByRefreshToken(refreshToken);
+        if(oauthToken == null) {
+            throw new BadCredentialsException("Invalid refresh token");
+        }
+        LoginWithTokenDTO res = saveTokenForUser(oauthToken.getUser());
+        tokenRepository.delete(oauthToken);
+        return res;
     }
 }
