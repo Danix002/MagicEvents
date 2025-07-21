@@ -6,8 +6,6 @@ const AuthContext = createContext();
 const REFRESH_INTERVAL_MINUTES = 5;
 
 export const AuthProvider = ({ children, user, setUser }) => {
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (!user?.refreshToken) return;
 
