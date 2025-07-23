@@ -42,9 +42,8 @@ const MyEventsPage = () => {
 				const now = new Date();
 				const pastEvents = mappedParticipatedEvents.filter(event => new Date(event.date) < now);
 				const ongoingOrUpcomingEvents = mappedParticipatedEvents.filter(event => {
-					const eventStart = new Date(event.startDate);
 					const eventEnd = new Date(event.endDate);
-					return now >= eventStart && now <= eventEnd;
+					return now <= eventEnd;
 				});
 
 				// Sort events by date (most recent first for past events, ascending for ongoing/upcoming)
