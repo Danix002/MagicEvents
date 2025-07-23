@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import { getEventsc } from '../../api/eventAPI';
+import { getEventsc, getEventsp } from '../../api/eventAPI';
 import { mapEventDTOtoCardProps } from '../../utils/eventObjectMapping';
 import EventList from '../../components/lists/EventList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarPlus, faBoxArchive } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faBoxArchive, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import Button from '../../components/buttons/Button';
 
 const MyEventsPage = () => {
-	const [events, setEvents] = useState([]);
+	const [createdEvents, setCreatedEvents] = useState([]);
+	const [participatedEvents, setParticipatedEvents] = useState([]);
 	const [ready, setReady] = useState(false);
 	const [loading, setLoading] = useState(true);
 
@@ -17,20 +18,34 @@ const MyEventsPage = () => {
 		setLoading(true);
 		async function fetchAPI() {
 			try {
-				const res = await getEventsc();
-				if (!res.ok) {
-					console.log(res);
-					setEvents([]);
+				const [createdRes, participatedRes] = await Promise.all([getEventsc(), getEventsp()]);
+
+				if (!createdRes.ok || !participatedRes.ok) {
+					console.log(createdRes, participatedRes);
+					setCreatedEvents([]);
+					setParticipatedEvents([]);
 					setReady(true);
 					return;
 				}
-				const data = await res.json();
-				const mappedEvents = await data.map(mapEventDTOtoCardProps);
-				setEvents(mappedEvents);
+
+				const [createdData, participatedData] = await Promise.all([
+					createdRes.json(),
+					participatedRes.json(),
+				]);
+
+				const mappedCreatedEvents = await createdData.map(mapEventDTOtoCardProps);
+				const mappedParticipatedEvents = await participatedData.map(mapEventDTOtoCardProps);
+
+				// Sort participated events by date (most recent first)
+				mappedParticipatedEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+				setCreatedEvents(mappedCreatedEvents);
+				setParticipatedEvents(mappedParticipatedEvents);
 				setReady(true);
 			} catch (error) {
 				console.error('Error fetching events:', error);
-				setEvents([]);
+				setCreatedEvents([]);
+				setParticipatedEvents([]);
 				setReady(true);
 			} finally {
 				setLoading(false);
@@ -79,29 +94,44 @@ const MyEventsPage = () => {
 							<p className="text-[#E4DCEF] text-lg font-medium">Caricamento eventi...</p>
 						</div>
 					) : ready ? (
-						events.length > 0 ? (
-							<div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl">
-								<EventList events={events} />
-							</div>
-						) : (
-							<div className="text-center py-16">
-								<div className="mb-6 sm:mb-8">
-									<div className="mx-auto w-16 h-16 sm:w-24 sm:h-24 bg-[#E4DCEF] bg-opacity-20 rounded-full flex items-center justify-center mb-4">
-										<FontAwesomeIcon icon={faCalendarPlus} className="text-2xl sm:text-4xl text-[#505458]" />
-									</div>
-									<h3 className="text-xl sm:text-2xl font-bold text-[#E4DCEF] mb-2">Non hai creato ancora nessun evento</h3>
-									<p className="text-sm sm:text-base text-[#E4DCEF] text-opacity-70 mb-4 sm:mb-6 max-w-md mx-auto px-4 sm:px-0">
-										Inizia a creare il tuo primo evento per condividere momenti speciali con amici e famiglia
-									</p>
-									<NavLink to="/newevent">
-										<Button 
-											text="Crea il tuo primo evento"
-											custom="px-6 py-2 sm:px-8 sm:py-3 text-base sm:text-lg font-semibold"
-										/>
-									</NavLink>
+						<>
+							{/* Created Events Section */}
+							{createdEvents.length > 0 ? (
+								<div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
+									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi Creati</h2>
+									<EventList events={createdEvents} />
 								</div>
-							</div>
-						)
+							) : (
+								<div className="text-center py-8">
+									<p className="text-[#E4DCEF] text-lg">Non hai creato ancora nessun evento</p>
+								</div>
+							)}
+
+							{/* Participated Events Section */}
+							{participatedEvents.length > 0 ? (
+								<div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl">
+									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi a cui ho partecipato</h2>
+									<EventList
+										events={participatedEvents}
+										customRender={(event) => (
+											<div
+												className={`p-4 rounded-lg ${
+													new Date(event.date) < new Date()
+														? 'bg-gray-500 text-white'
+														: 'bg-green-500 text-white'
+												}`}
+											>
+												{event.title} - {event.date}
+											</div>
+										)}
+									/>
+								</div>
+							) : (
+								<div className="text-center py-8">
+									<p className="text-[#E4DCEF] text-lg">Non hai partecipato a nessun evento</p>
+								</div>
+							)}
+						</>
 					) : (
 						<div className="text-center py-16">
 							<div className="text-red-400 mb-4">
