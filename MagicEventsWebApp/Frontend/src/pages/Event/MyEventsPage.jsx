@@ -46,7 +46,7 @@ const MyEventsPage = () => {
 					const eventEnd = new Date(event.endDate);
 					return now <= eventEnd;
 				});
-				console.log('Ongoing/Upcoming Events:', mappedParticipatedEvents);
+				console.log('Ongoing/Upcoming Events:', ongoingOrUpcomingEvents);
 
 				// Sort events by date (most recent first for past events, ascending for ongoing/upcoming)
 				pastEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
