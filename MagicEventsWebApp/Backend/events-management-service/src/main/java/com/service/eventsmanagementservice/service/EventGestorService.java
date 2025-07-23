@@ -22,6 +22,7 @@ import com.service.eventsmanagementservice.exception.UnauthorizedException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -293,6 +294,7 @@ public class EventGestorService {
                 eventDTOs.add(eventDTO);
             }
         }
+        Collections.reverse(eventDTOs);
         return eventDTOs;
     }
 
