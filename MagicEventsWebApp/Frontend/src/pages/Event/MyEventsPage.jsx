@@ -3,13 +3,14 @@ import { getEventsc, getEventsp } from '../../api/eventAPI';
 import { mapEventDTOtoCardProps } from '../../utils/eventObjectMapping';
 import EventList from '../../components/lists/EventList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarPlus, faBoxArchive, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faBoxArchive } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import Button from '../../components/buttons/Button';
 
 const MyEventsPage = () => {
 	const [createdEvents, setCreatedEvents] = useState([]);
 	const [participatedEvents, setParticipatedEvents] = useState([]);
+	const [ongoingEvents, setOngoingEvents] = useState([]);
 	const [ready, setReady] = useState(false);
 	const [loading, setLoading] = useState(true);
 
@@ -24,6 +25,7 @@ const MyEventsPage = () => {
 					console.log(createdRes, participatedRes);
 					setCreatedEvents([]);
 					setParticipatedEvents([]);
+					setOngoingEvents([]);
 					setReady(true);
 					return;
 				}
@@ -36,16 +38,24 @@ const MyEventsPage = () => {
 				const mappedCreatedEvents = await createdData.map(mapEventDTOtoCardProps);
 				const mappedParticipatedEvents = await participatedData.map(mapEventDTOtoCardProps);
 
-				// Sort participated events by date (most recent first)
-				mappedParticipatedEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
+				 // Separate past and ongoing/upcoming events
+				const now = new Date();
+				const pastEvents = mappedParticipatedEvents.filter(event => new Date(event.date) < now);
+				const ongoingOrUpcomingEvents = mappedParticipatedEvents.filter(event => new Date(event.date) >= now);
+
+				// Sort events by date (most recent first for past events, ascending for ongoing/upcoming)
+				pastEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
+				ongoingOrUpcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
 
 				setCreatedEvents(mappedCreatedEvents);
-				setParticipatedEvents(mappedParticipatedEvents);
+				setParticipatedEvents(pastEvents);
+				setOngoingEvents(ongoingOrUpcomingEvents);
 				setReady(true);
 			} catch (error) {
 				console.error('Error fetching events:', error);
 				setCreatedEvents([]);
 				setParticipatedEvents([]);
+				setOngoingEvents([]);
 				setReady(true);
 			} finally {
 				setLoading(false);
@@ -107,6 +117,18 @@ const MyEventsPage = () => {
 								</div>
 							)}
 
+							 {/* Ongoing/Upcoming Events Section */}
+							{ongoingEvents.length > 0 ? (
+								<div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
+									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi in Corso</h2>
+									<EventList events={ongoingEvents} />
+								</div>
+							) : (
+								<div className="text-center py-8">
+									<p className="text-[#E4DCEF] text-lg">Non ci sono eventi in corso</p>
+								</div>
+							)}
+
 							{/* Participated Events Section */}
 							{participatedEvents.length > 0 ? (
 								<div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl">
@@ -114,13 +136,7 @@ const MyEventsPage = () => {
 									<EventList
 										events={participatedEvents}
 										customRender={(event) => (
-											<div
-												className={`p-4 rounded-lg ${
-													new Date(event.date) < new Date()
-														? 'bg-gray-500 text-white'
-														: 'bg-green-500 text-white'
-												}`}
-											>
+											<div className="p-4 rounded-lg bg-gray-500 text-white">
 												{event.title} - {event.date}
 											</div>
 										)}
