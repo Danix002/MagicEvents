@@ -37,14 +37,16 @@ const MyEventsPage = () => {
 
 				const mappedCreatedEvents = await createdData.map(mapEventDTOtoCardProps);
 				const mappedParticipatedEvents = await participatedData.map(mapEventDTOtoCardProps);
-
+				console.log('Mapped Participated Events:', mappedParticipatedEvents);
 				// Separate past and ongoing/upcoming events
 				const now = new Date();
 				const pastEvents = mappedParticipatedEvents.filter(event => new Date(event.date) < now);
+				console.log('Past Events:', pastEvents);
 				const ongoingOrUpcomingEvents = mappedParticipatedEvents.filter(event => {
 					const eventEnd = new Date(event.endDate);
-					return now >= eventEnd;
+					return now <= eventEnd;
 				});
+				console.log('Ongoing/Upcoming Events:', mappedParticipatedEvents);
 
 				// Sort events by date (most recent first for past events, ascending for ongoing/upcoming)
 				pastEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
