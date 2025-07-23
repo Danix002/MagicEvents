@@ -44,7 +44,18 @@ const MyEventsPage = () => {
 
 				const pastEvents = mappedParticipatedEvents.filter(event => {
 					const eventDateTime = new Date(event.localDataTime); // Extracted from mapEventDTOtoCardProps
-					return eventDateTime < now;
+					return (
+						eventDateTime < now &&
+						!mappedCreatedEvents.some(createdEvent =>
+							createdEvent.localDataTime === event.localDataTime &&
+							createdEvent.day === event.day &&
+							createdEvent.month === event.month &&
+							createdEvent.eventName === event.eventName &&
+							createdEvent.time === event.time &&
+							createdEvent.location === event.location &&
+							createdEvent.description === event.description
+						)
+					);
 				});
 				console.log('Past Events:', pastEvents);
 
