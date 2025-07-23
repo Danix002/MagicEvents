@@ -118,7 +118,7 @@ const MyEventsPage = () => {
 						<>
 							{/* Created Events Section */}
 							{createdEvents.length > 0 ? (
-								<div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
+								<div className="bg-[#2C2F33] bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
 									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi Creati</h2>
 									<EventList events={createdEvents} />
 								</div>
@@ -130,7 +130,7 @@ const MyEventsPage = () => {
 
 							 {/* Ongoing/Upcoming Events Section */}
 							{ongoingEvents.length > 0 ? (
-								<div className="bg-orange bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
+								<div className="bg-[#2C2F33] bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
 									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi in Corso</h2>
 									<EventList events={ongoingEvents} />
 								</div>
@@ -143,7 +143,7 @@ const MyEventsPage = () => {
 							{/* Participated Events Section */}
 							{participatedEvents.length > 0 ? (
 								<div className="bg-[#2C2F33] bg-opacity-90 backdrop-blur-sm rounded-2xl p-2 shadow-xl">
-									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi a cui ho partecipato</h2>
+									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi Passati</h2>
 									<EventList
 										events={participatedEvents}
 										customRender={(event) => (
