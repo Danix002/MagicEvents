@@ -43,9 +43,9 @@ const MyEventsPage = () => {
 				const pastEvents = mappedParticipatedEvents.filter(event => new Date(event.date) < now);
 				console.log('Past Events:', pastEvents);
 				const ongoingOrUpcomingEvents = mappedParticipatedEvents.filter(event => {
-					const eventStart = new Date(event.starting);
 					const eventEnd = new Date(event.ending);
-					return now >= eventStart && now <= eventEnd;
+					console.log('Event End:', eventEnd);
+					return  now <= eventEnd;
 				});
 				console.log('Ongoing/Upcoming Events:', ongoingOrUpcomingEvents);
 
