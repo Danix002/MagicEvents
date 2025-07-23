@@ -131,7 +131,7 @@ const MyEventsPage = () => {
 
 							{/* Participated Events Section */}
 							{participatedEvents.length > 0 ? (
-								<div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl">
+								<div className="bg-[#2C2F33] bg-opacity-90 backdrop-blur-sm rounded-2xl p-2 shadow-xl">
 									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi a cui ho partecipato</h2>
 									<EventList
 										events={participatedEvents}
