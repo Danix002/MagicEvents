@@ -130,7 +130,7 @@ const MyEventsPage = () => {
 
 							 {/* Ongoing/Upcoming Events Section */}
 							{ongoingEvents.length > 0 ? (
-								<div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
+								<div className="bg-orange bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
 									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi in Corso</h2>
 									<EventList events={ongoingEvents} />
 								</div>
