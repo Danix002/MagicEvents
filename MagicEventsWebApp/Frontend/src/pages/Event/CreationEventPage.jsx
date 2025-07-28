@@ -105,6 +105,10 @@ const CreationEventPage = () => {
 			setError('I campi della bacheca sono obbligatori');
 			return false;
 		}
+		if (!eventDetail.description) {
+			setError('La descrizione è obbligatoria');
+			return false;
+		}
 		return true;
 	}
 
@@ -244,7 +248,7 @@ const CreationEventPage = () => {
 									onChange={(e) => handleChange(e, 'description')}
 									value={eventDetail.description}
 									name="descrizione"
-									label="Descrizione"
+									label={<span>Descrizione <span className="text-red-500">*</span></span>}
 									customClass="bg-white text-[#363540]"
 								/>
 
