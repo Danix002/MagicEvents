@@ -150,8 +150,7 @@ const CreationEventPage = () => {
 			return;
 		}
 		if (eventDetail.image.length <= 0) {
-			setError("L'immagine di evento è obbligatoria");
-			return;
+			setEventDetail((prev) => ({ ...prev, image: '/magicevents-logo.png' }));
 		}
 		setError('');
 		setLoading(true);
