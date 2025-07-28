@@ -93,8 +93,12 @@ const CreationEventPage = () => {
 	}
 
 	function validateForm() {
-		if (eventDetail.title.length > 250) {
-			setError('Il titolo non può superare i 250 caratteri');
+		if (eventDetail.title.length > 50) {
+			setError('Il titolo non può superare i 50 caratteri');
+			return false;
+		}
+		if (eventDetail.boardTitle.length > 50) {
+			setError('Il titolo della bacheca non può superare i 50 caratteri');
 			return false;
 		}
 		if (new Date(eventDetail.starting) >= new Date(eventDetail.ending)) {
@@ -108,6 +112,9 @@ const CreationEventPage = () => {
 		if (!eventDetail.description) {
 			setError('La descrizione è obbligatoria');
 			return false;
+		}
+		if (!eventDetail.image) {
+			setEventDetail((prev) => ({ ...prev, image: '/magicevents-logo.png' }));
 		}
 		return true;
 	}
@@ -186,23 +193,28 @@ const CreationEventPage = () => {
 					<h1 className="text-3xl font-bold text-white mb-4">Crea il tuo evento</h1>
 					
 					{/* Tab Navigation */}
-					<div className="flex flex-wrap gap-2">
-						{tabs.map((tabItem) => (
-							<Button
-								key={tabItem.id}
-								text={
-									<div className="flex items-center gap-2">
-										<FontAwesomeIcon icon={tabItem.icon} />
-										<span className="hidden sm:inline">{tabItem.label}</span>
-									</div>
-								}
-								onClick={() => setTab(tabItem.id)}
-								custom={clsx({
-									'px-4 py-2 rounded-lg font-semibold transition-all border-2': true,
-									'bg-white text-[#EE0E51] border-white shadow-lg': tab === tabItem.id,
-									'bg-transparent text-white border-white border-opacity-30 hover:border-opacity-50': tab !== tabItem.id,
-								})}
-							/>
+					<div className="flex flex-wrap gap-2 items-center">
+						{tabs.map((tabItem, index) => (
+							<>
+								<Button
+									key={tabItem.id}
+									text={
+										<div className="flex items-center gap-2">
+											<FontAwesomeIcon icon={tabItem.icon} />
+											<span className="hidden sm:inline">{tabItem.label}</span>
+										</div>
+									}
+									onClick={() => setTab(tabItem.id)}
+									custom={clsx({
+										'px-4 py-2 rounded-lg font-semibold transition-all border-2': true,
+										'bg-white text-[#EE0E51] border-white shadow-lg': tab === tabItem.id,
+										'bg-transparent text-white border-white border-opacity-30 hover:border-opacity-50': tab !== tabItem.id,
+									})}
+								/>
+								{index < tabs.length - 1 && (
+									<span className="text-white text-lg font-bold mx-2">{'>'}</span>
+								)}
+							</>
 						))}
 					</div>
 				</div>
