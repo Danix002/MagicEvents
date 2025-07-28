@@ -92,7 +92,24 @@ const CreationEventPage = () => {
 		reader.readAsDataURL(file);
 	}
 
+	function validateForm() {
+		if (eventDetail.title.length > 250) {
+			setError('Il titolo non può superare i 250 caratteri');
+			return false;
+		}
+		if (new Date(eventDetail.starting) >= new Date(eventDetail.ending)) {
+			setError('La data di inizio deve essere precedente alla data di fine');
+			return false;
+		}
+		if (!eventDetail.boardTitle || !eventDetail.boardDescription) {
+			setError('I campi della bacheca sono obbligatori');
+			return false;
+		}
+		return true;
+	}
+
 	async function handleCreate() {
+		if (!validateForm()) return;
 		if (eventDetail.location) {
 			onLocationSet(eventDetail.location);
 		} else {
@@ -198,7 +215,7 @@ const CreationEventPage = () => {
 								<Input
 									onChange={(e) => handleChange(e, 'title')}
 									value={eventDetail.title}
-									label="Titolo evento"
+									label={<span>Titolo evento <span className="text-red-500">*</span></span>}
 									name="titolo"
 									customClass="bg-white text-[#363540]"
 								/>
@@ -208,7 +225,7 @@ const CreationEventPage = () => {
 										onChange={(e) => handleChange(e, 'starting')}
 										value={eventDetail.starting}
 										type="datetime-local"
-										label="Inizia il"
+										label={<span>Inizia il <span className="text-red-500">*</span></span>}
 										name="starting"
 										customClass="bg-white text-[#363540]"
 									/>
@@ -216,7 +233,7 @@ const CreationEventPage = () => {
 										onChange={(e) => handleChange(e, 'ending')}
 										value={eventDetail.ending}
 										type="datetime-local"
-										label="Finisce il"
+										label={<span>Finisce il <span className="text-red-500">*</span></span>}
 										name="ending"
 										customClass="bg-white text-[#363540]"
 									/>
@@ -257,7 +274,7 @@ const CreationEventPage = () => {
 								<Input
 									onChange={(e) => handleChange(e, 'boardTitle')}
 									value={eventDetail.boardTitle}
-									label="Titolo della bacheca"
+									label={<span>Titolo della bacheca <span className="text-red-500">*</span></span>}
 									name="titolo"
 									customClass="bg-white text-[#363540]"
 								/>
@@ -267,7 +284,7 @@ const CreationEventPage = () => {
 									onChange={(e) => handleChange(e, 'boardDescription')}
 									value={eventDetail.boardDescription}
 									name="descrizione bacheca"
-									label="Descrizione"
+									label={<span>Descrizione <span className="text-red-500">*</span></span>}
 									customClass="bg-white text-[#363540]"
 								/>
 							</div>
