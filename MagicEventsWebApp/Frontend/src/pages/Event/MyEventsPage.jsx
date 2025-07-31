@@ -146,8 +146,9 @@ const MyEventsPage = () => {
 									<EventList events={ongoingEvents} />
 								</div>
 							) : (
-								<div className="text-center py-8 bg-[#2C2F33] bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
-									<p className="text-[#E4DCEF] text-lg">Non ci sono eventi in corso</p>
+								<div className="bg-[#2C2F33] bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
+									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi in Corso</h2>
+									<p className="text-[#E4DCEF] text-lg text-center py-8 w-full">Non ci sono eventi in corso</p>
 								</div>
 							)}
 
