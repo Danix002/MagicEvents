@@ -133,7 +133,7 @@ const EventCard = ({ localDataTime, day, month, eventName, time, location, descr
 
 			{/* Content */}
 			<div className="p-6 sm:p-8 md:w-2/3">
-				<h3 className="text-xl font-bold text-[#363540] mb-2 group-hover:text-[#EE0E51] transition-colors duration-300">
+				<h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#363540] mb-2 group-hover:text-[#EE0E51] transition-colors duration-300">
 					{eventName}
 				</h3>
 				<p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
