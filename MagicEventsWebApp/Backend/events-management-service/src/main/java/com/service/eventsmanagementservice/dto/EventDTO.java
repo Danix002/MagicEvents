@@ -18,16 +18,12 @@ public class EventDTO {
     private LocalDateTime ending;
     @NotNull(message = "Location is required")
     private String location;
-
     @NotNull(message = "Creator Magic Events Tag is required")
     private Long creator;
-
     @NotNull(message = "Partecipants is required")
     private ArrayList<String> partecipants;
-
     @NotNull(message = "Admins is required")
     private ArrayList<String> admins;
-    
     private String image;
 
     public EventDTO() {}

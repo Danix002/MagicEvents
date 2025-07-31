@@ -37,9 +37,7 @@ public class EventSetupRequestDTO {
     
     @NotNull(message = "Admins list is required")
     private ArrayList<String> admins;
-    
-    @NotNull(message = "Image is required")
-    @NotBlank(message = "Base64 image cannot be blank")
+
     private String image;
     
     @NotNull(message = "game enabled flag is required")
@@ -54,6 +52,7 @@ public class EventSetupRequestDTO {
     private String galleryTitle;
     
     private String boardTitle;
+    
     private String boardDescription;
 
     private String gameDescription;
