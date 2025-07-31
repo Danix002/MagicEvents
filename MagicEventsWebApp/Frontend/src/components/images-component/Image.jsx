@@ -1,4 +1,4 @@
-import defaultImage from '@/assets/magicevents-logo.png';
+import defaultImage from '../../assets/magicevents-logo.png';
 
 const Image = ({ src, alt = 'thumbnail', onClick }) => {
 	const imageSrc =
