@@ -159,13 +159,11 @@ const EventsPage = () => {
 
 							{/* Event Info Card */}
 							<div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-6 shadow-xl mb-6">
-								<h1 className="text-3xl md:text-4xl font-bold text-[#363540] mb-4">{event.title}</h1>
-
+								<h1 className="text-3xl md:text-4xl font-bold text-[#363540] mb-4 w-full">{event.title}</h1>
 								<div
 									className="bg-[#363540] border border-[#E4DCEF] border-opacity-20 rounded-xl p-4 mb-6">
 									<p className="text-[#E4DCEF] leading-relaxed">{event.description}</p>
 								</div>
-
 								{/* Date Section */}
 								<div
 									className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 bg-[#363540] bg-opacity-50 rounded-xl">
