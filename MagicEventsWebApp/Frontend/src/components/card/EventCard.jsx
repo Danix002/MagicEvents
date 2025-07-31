@@ -94,6 +94,7 @@ const EventCard = ({ localDataTime, day, month, eventName, time, location, descr
 			className={clsx(
 				"group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100",
 				"sm:flex sm:flex-col sm:items-stretch md:flex-row md:items-center",
+				"w-80 h-96", // Added fixed width and height
 				{
 					"cursor-pointer transform hover:-translate-y-1": !loadingAPI && eventId !== -1,
 					"cursor-not-allowed opacity-70": loadingAPI || eventId === -1,
