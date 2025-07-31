@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @Service
 @Slf4j
 public class EventGestorService {
@@ -351,6 +350,7 @@ public class EventGestorService {
                 eventDTOs.add(eventDTO);
             }
         }
+        Collections.reverse(eventDTOs);
         return eventDTOs;
     }
 
