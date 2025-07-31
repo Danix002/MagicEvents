@@ -27,8 +27,7 @@ public class EventDTO {
 
     @NotNull(message = "Admins is required")
     private ArrayList<String> admins;
-
-    @NotBlank(message = "Base64 image cannot be blank")
+    
     private String image;
 
     public EventDTO() {}
