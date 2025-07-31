@@ -3,7 +3,7 @@ import EventCard from '../card/EventCard';
 
 const EventList = ({ events = [] }) => {
 	return (
-		<div className="p-6 h-full text-[#E4DCEF]">
+		<div className="p-6 h-full text-[#E4DCEF] overflow-x-auto flex gap-4">
 			{events.length === 0 ? (
 				<p className="text-center text-gray-500 text-lg mt-12">
 					Ancora nessun evento creato
