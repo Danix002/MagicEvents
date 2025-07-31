@@ -131,7 +131,9 @@ const MyEventsPage = () => {
 							{createdEvents.length > 0 ? (
 								<div className="bg-[#2C2F33] bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
 									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi Creati</h2>
-									<EventList events={createdEvents} />
+									<div className="overflow-x-auto flex gap-4">
+										<EventList events={createdEvents} />
+									</div>
 								</div>
 							) : (
 								<div className="text-center py-8">
@@ -143,7 +145,9 @@ const MyEventsPage = () => {
 							{ongoingEvents.length > 0 ? (
 								<div className="bg-[#2C2F33] bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
 									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi in Corso</h2>
-									<EventList events={ongoingEvents} />
+									<div className="overflow-x-auto flex gap-4">
+										<EventList events={ongoingEvents} />
+									</div>
 								</div>
 							) : (
 								<div className="text-center py-8">
@@ -155,14 +159,16 @@ const MyEventsPage = () => {
 							{participatedEvents.length > 0 ? (
 								<div className="bg-[#2C2F33] bg-opacity-90 backdrop-blur-sm rounded-2xl p-2 shadow-xl">
 									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi Passati</h2>
-									<EventList
-										events={participatedEvents}
-										customRender={(event) => (
-											<div className="p-4 rounded-lg bg-gray-500 text-white">
-												{event.title} - {event.date}
-											</div>
-										)}
-									/>
+									<div className="overflow-x-auto flex gap-4">
+										<EventList
+											events={participatedEvents}
+											customRender={(event) => (
+												<div className="p-4 rounded-lg bg-gray-500 text-white">
+													{event.title} - {event.date}
+												</div>
+											)}
+										/>
+									</div>
 								</div>
 							) : (
 								<div className="text-center py-8">
