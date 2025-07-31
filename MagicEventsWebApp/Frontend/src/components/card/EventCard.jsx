@@ -101,7 +101,7 @@ const EventCard = ({ localDataTime, day, month, eventName, time, location, descr
 			)}
 		>
 			{/* Header with date */}
-			<div className="bg-gradient-to-r from-[#EE0E51] to-[#FF6B9D] text-white p-4 sm:p-6 md:w-1/3">
+			<div className="bg-gradient-to-r from-[#EE0E51] to-[#FF6B9D] text-white p-4 sm:p-6 md:w-1/3 h-full flex flex-col justify-center">
 				<div className="flex items-center gap-3">
 					<div className="bg-white/20 backdrop-blur-sm rounded-xl p-3">
 						{loadingAPI ? (
@@ -133,7 +133,7 @@ const EventCard = ({ localDataTime, day, month, eventName, time, location, descr
 
 			{/* Content */}
 			<div className="p-6 sm:p-8 md:w-2/3">
-				<h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#363540] mb-2 group-hover:text-[#EE0E51] transition-colors duration-300">
+				<h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#363540] mb-2 group-hover:text-[#EE0E51] transition-colors duration-300 text-ellipsis break-words line-clamp-1">
 					{eventName}
 				</h3>
 				<p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
