@@ -150,7 +150,7 @@ const CreationEventPage = () => {
 			return;
 		}
 		if (eventDetail.image.length <= 0) {
-			setEventDetail((prev) => ({ ...prev, image: '.././magicevents-logo.png' }));
+			setEventDetail((prev) => ({ ...prev, image: '/magicevents-logo.png' }));
 		}
 		setError('');
 		setLoading(true);

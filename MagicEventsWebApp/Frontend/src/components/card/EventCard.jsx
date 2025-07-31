@@ -93,6 +93,7 @@ const EventCard = ({ localDataTime, day, month, eventName, time, location, descr
 			onClick={handleCardClick}
 			className={clsx(
 				"group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100",
+				"sm:flex sm:flex-col sm:items-stretch md:flex-row md:items-center",
 				{
 					"cursor-pointer transform hover:-translate-y-1": !loadingAPI && eventId !== -1,
 					"cursor-not-allowed opacity-70": loadingAPI || eventId === -1,
@@ -100,7 +101,7 @@ const EventCard = ({ localDataTime, day, month, eventName, time, location, descr
 			)}
 		>
 			{/* Header with date */}
-			<div className="bg-gradient-to-r from-[#EE0E51] to-[#FF6B9D] text-white p-4">
+			<div className="bg-gradient-to-r from-[#EE0E51] to-[#FF6B9D] text-white p-4 sm:p-6 md:w-1/3">
 				<div className="flex items-center gap-3">
 					<div className="bg-white/20 backdrop-blur-sm rounded-xl p-3">
 						{loadingAPI ? (
@@ -131,7 +132,7 @@ const EventCard = ({ localDataTime, day, month, eventName, time, location, descr
 			</div>
 
 			{/* Content */}
-			<div className="p-6">
+			<div className="p-6 sm:p-8 md:w-2/3">
 				<h3 className="text-xl font-bold text-[#363540] mb-2 group-hover:text-[#EE0E51] transition-colors duration-300">
 					{eventName}
 				</h3>
@@ -156,7 +157,7 @@ const EventCard = ({ localDataTime, day, month, eventName, time, location, descr
 				</div>
 
 				{/* Action buttons */}
-				<div className="flex flex-wrap gap-2">
+				<div className="flex flex-wrap gap-2 justify-center sm:justify-start">
 					{eventEnabled && !loadingAPI && eventId !== -1 && (
 						<Button
 							text="Modifica"
