@@ -146,7 +146,7 @@ const MyEventsPage = () => {
 									<EventList events={ongoingEvents} />
 								</div>
 							) : (
-								<div className="text-center py-8">
+								<div className="text-center py-8 bg-[#2C2F33] bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
 									<p className="text-[#E4DCEF] text-lg">Non ci sono eventi in corso</p>
 								</div>
 							)}
@@ -165,7 +165,7 @@ const MyEventsPage = () => {
 									/>
 								</div>
 							) : (
-								<div className="text-center py-8">
+								<div className="text-center py-8 bg-[#2C2F33] bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
 									<p className="text-[#E4DCEF] text-lg">Non hai partecipato a nessun evento</p>
 								</div>
 							)}
