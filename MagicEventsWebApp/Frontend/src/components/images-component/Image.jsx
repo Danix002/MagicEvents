@@ -1,4 +1,4 @@
-import defaultImage from '../../../public/magicevents-logo.png'; // Può essere un import o un URL
+import defaultImage from '@/assets/magicevents-logo.png';
 
 const Image = ({ src, alt = 'thumbnail', onClick }) => {
 	const imageSrc =
