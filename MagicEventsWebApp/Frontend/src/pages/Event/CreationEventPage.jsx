@@ -113,9 +113,6 @@ const CreationEventPage = () => {
 			setError('La descrizione è obbligatoria');
 			return false;
 		}
-		if (!eventDetail.image) {
-			setEventDetail((prev) => ({ ...prev, image: '/magicevents-logo.png' }));
-		}
 		return true;
 	}
 

@@ -1,14 +1,18 @@
+import defaultImage from '../../../public/magicevents-logo.png'; // Può essere un import o un URL
+
 const Image = ({ src, alt = 'thumbnail', onClick }) => {
-	if (!src) {
-		return;
-	}
+	const imageSrc =
+		src && src.trim() !== ''
+			? 'data:image/*;base64,' + src
+			: defaultImage;
+
 	return (
 		<img
 			onClick={onClick}
 			className="w-full border border-[#E4DCEF] rounded-md ring ring-[#E4DCEF] ring-offset-2 flex-auto max-h-[48rem] object-cover"
-			src={'data:image/*;base64,' + src}
+			src={imageSrc}
 			alt={alt}
-		></img>
+		/>
 	);
 };
 
