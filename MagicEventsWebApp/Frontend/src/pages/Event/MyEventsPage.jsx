@@ -134,8 +134,9 @@ const MyEventsPage = () => {
 									<EventList events={createdEvents} />
 								</div>
 							) : (
-								<div className="text-center py-8">
-									<p className="text-[#E4DCEF] text-lg">Non hai creato ancora nessun evento</p>
+								<div className="bg-[#2C2F33] bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
+									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi Creati</h2>
+									<p className="text-[#E4DCEF] text-lg text-center py-8 ">Vuoto</p>
 								</div>
 							)}
 
@@ -148,7 +149,7 @@ const MyEventsPage = () => {
 							) : (
 								<div className="bg-[#2C2F33] bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
 									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi in Corso</h2>
-									<p className="text-[#E4DCEF] text-lg text-center py-8 ">Non ci sono eventi in corso</p>
+									<p className="text-[#E4DCEF] text-lg text-center py-8 ">Vuoto</p>
 								</div>
 							)}
 
@@ -166,8 +167,9 @@ const MyEventsPage = () => {
 									/>
 								</div>
 							) : (
-								<div className="text-center py-8 bg-[#2C2F33] bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
-									<p className="text-[#E4DCEF] text-lg">Non hai partecipato a nessun evento</p>
+								<div className="bg-[#2C2F33] bg-opacity-20 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-8">
+									<h2 className="text-xl font-bold text-[#E4DCEF] mb-4">Eventi Passati</h2>
+									<p className="text-[#E4DCEF] text-lg text-center py-8 ">Vuoto</p>
 								</div>
 							)}
 						</>
