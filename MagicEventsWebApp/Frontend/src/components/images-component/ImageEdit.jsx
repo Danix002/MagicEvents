@@ -3,9 +3,9 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 const ImageEdit = ({src, alt, onEditClick}) => { 
   return (
-    <div className="relative w-full max-h-[48rem] min-h-[21rem] rounded-md overflow-hidden border border-[#E4DCEF] ring ring-[#E4DCEF] ring-offset-2">
+    <div className="relative w-full max-h-[48rem] min-h-21 rounded-md overflow-hidden border border-[#E4DCEF] ring ring-[#E4DCEF] ring-offset-2">
       <img
-        className="w-full border border-[#E4DCEF] rounded-md ring ring-[#E4DCEF] ring-offset-2 flex-auto max-h-[48rem] object-cover"
+        className="w-full min-h-21 border border-[#E4DCEF] rounded-md ring ring-[#E4DCEF] ring-offset-2 flex-auto max-h-[48rem] object-cover"
         src={'data:image/*;base64,' + src}
         alt={alt}
       />
