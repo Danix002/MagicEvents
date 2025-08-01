@@ -13,7 +13,7 @@ const ImageEdit = ({src, alt, onEditClick}) => {
 
             />
         ):(
-            <span className="text-sm text-gray-500 text-center">{alt}</span>
+            <span className="w-full h-full text-sm text-gray-500 text-center">{alt}</span>
         )}
       <button
         onClick={onEditClick}
