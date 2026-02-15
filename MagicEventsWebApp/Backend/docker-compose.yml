@@ -12,7 +12,7 @@ services:
     environment:
       POSTGRES_DB: UserManagementMEADB
       POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: 
     ports:
       - '5432:5432'
     volumes:
@@ -28,7 +28,7 @@ services:
     environment:
       POSTGRES_DB: EventsManagementMEADB
       POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: 
     ports:
       - '5431:5432'
     volumes:
@@ -44,7 +44,7 @@ services:
     environment:
       POSTGRES_DB: Board
       POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: 
     ports:
       - '5433:5432'
     volumes:
@@ -60,7 +60,7 @@ services:
     environment:
       POSTGRES_DB: GuestGame
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: 
     ports:
       - '5434:5432'
     volumes:
@@ -76,7 +76,7 @@ services:
     environment:
       POSTGRES_DB: Gallery
       POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: 
     ports:
       - '5435:5432'
     volumes:
@@ -119,7 +119,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://user-management-db:5432/UserManagementMEADB
       SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_PASSWORD: 
     depends_on:
       - user-management-db
     networks:
@@ -137,7 +137,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://events-management-db:5432/EventsManagementMEADB
       SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_PASSWORD: 
       SPRING_RABBITMQ_HOST: rabbitmq
       SERVICES_USERMANAGEMENT_URL: https://user-management-service:8443
     depends_on:
@@ -182,7 +182,7 @@ services:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: jdbc:postgresql://board-db:5432/Board
       SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_PASSWORD: 
       SPRING_RABBITMQ_HOST: rabbitmq
       SERVICES_EVENTMANAGEMENT_URL: https://events-management-service:8080
     depends_on:
@@ -205,7 +205,7 @@ services:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: jdbc:postgresql://guest-game-db:5432/GuestGame
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_PASSWORD: 
       SPRING_RABBITMQ_HOST: rabbitmq
       SERVICES_EVENTMANAGEMENT_URL: https://events-management-service:8080
     depends_on:
@@ -228,7 +228,7 @@ services:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: jdbc:postgresql://gallery-db:5432/Gallery
       SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_PASSWORD: 
       SPRING_RABBITMQ_HOST: rabbitmq
       SERVICES_EVENTMANAGEMENT_URL: https://events-management-service:8080
     depends_on:
