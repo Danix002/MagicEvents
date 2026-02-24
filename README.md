@@ -15,11 +15,3 @@ The application is currently in the **active development phase**.
 
 > [!IMPORTANT]  
 > Please note that the backend server is currently offline. Consequently, MagicEvents are momentarily unavailable for public usage.
-
-## Preview
-Below are illustrative screenshots of the application's current interface:
-
-<p align="center">
-  <img src="img/my-events.jpg" width="45%" />
-  <img src="img/user-profile.jpg" width="45%" />
-</p>
