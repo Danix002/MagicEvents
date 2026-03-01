@@ -7,6 +7,7 @@ import { annullEvent, activeEvent, deleteEvent, getEventId, isActive } from '../
 import { useCoordinatesConverter } from '../../utils/coordinatesConverter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faMapMarkerAlt, faCalendarAlt, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import {isAdmin} from "../../utils/utils";
 
 const EventCard = ({ localDataTime, day, month, eventName, time, location, description }) => {
 	const navigate = useNavigate();
@@ -15,6 +16,7 @@ const EventCard = ({ localDataTime, day, month, eventName, time, location, descr
 	const [eventEnabled, setEventEnabled] = useState(false);
 	const [eventId, setEventId] = useState(-1);
 	const [operationLoading, setOperationLoading] = useState(false);
+	const [isAdminVar, setIsAdminVar] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -24,6 +26,8 @@ const EventCard = ({ localDataTime, day, month, eventName, time, location, descr
 				setEventId(id[0]);
 				const status = await isActive(id[0]);
 				const flag = await status.json();
+				const isAdminFlag = await isAdmin(id)
+				setIsAdminVar(isAdminFlag)
 				setEventEnabled(flag);
 				setLoadingAPI(false);
 			} catch (err) {
@@ -115,10 +119,10 @@ const EventCard = ({ localDataTime, day, month, eventName, time, location, descr
 						<p className="text-sm font-medium opacity-90">{month}</p>
 						<p className="text-2xl font-bold">{day}</p>
 					</div>
-					{!loadingAPI && !eventEnabled && (
+					{!loadingAPI && isAdminVar && (
 						<div className="ml-auto">
 							<span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium">
-								Annullato
+							  {eventEnabled ? "Attivo" : "Annullato"}
 							</span>
 						</div>
 					)}
@@ -180,32 +184,38 @@ const EventCard = ({ localDataTime, day, month, eventName, time, location, descr
 						/>
 					) : (
 						<>
-							<Button
-								text={operationLoading ? "Eliminando..." : "Elimina"}
-								disabled={operationLoading}
-								custom="!bg-red-50 !text-red-600 hover:!bg-red-100 !text-sm !px-4 !py-2 !rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-								onClick={handleDelete}
-							/>
-							<Button 
-								text={
-									operationLoading ? (
-										<div className="flex items-center gap-2">
-											<FontAwesomeIcon icon={faSpinner} className="animate-spin" />
-											<span>{eventEnabled ? 'Annullando...' : 'Attivando...'}</span>
-										</div>
-									) : (
-										!eventEnabled ? 'Attiva' : 'Annulla'
-									)
-								}
-								disabled={operationLoading}
-								custom={clsx(
-									'!text-sm !px-4 !py-2 !rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed',
-									eventEnabled 
-										? '!bg-orange-50 !text-orange-600 hover:!bg-orange-100' 
-										: '!bg-green-50 !text-green-600 hover:!bg-green-100'
-								)}
-								onClick={handleClick} 
-							/>
+							{isAdminVar && (
+								<>
+									<Button
+										text={operationLoading ? "Eliminando..." : "Elimina"}
+										disabled={operationLoading}
+										custom="!bg-red-50 !text-red-600 hover:!bg-red-100 !text-sm !px-4 !py-2 !rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+										onClick={handleDelete}
+									/>
+									<Button
+										text={
+											operationLoading ? (
+												<div className="flex items-center gap-2">
+													<FontAwesomeIcon icon={faSpinner} className="animate-spin" />
+													<span>{eventEnabled ? "Annullando..." : "Attivando..."}</span>
+												</div>
+											) : !eventEnabled ? (
+												"Attiva"
+											) : (
+												"Annulla"
+											)
+										}
+										disabled={operationLoading}
+										custom={clsx(
+											"!text-sm !px-4 !py-2 !rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed",
+											eventEnabled
+												? "!bg-orange-50 !text-orange-600 hover:!bg-orange-100"
+												: "!bg-green-50 !text-green-600 hover:!bg-green-100"
+										)}
+										onClick={handleClick}
+									/>
+								</>
+							)}
 						</>
 					)}
 				</div>
